@@ -1,4 +1,6 @@
-import "dotenv/config"
+const apiUrl = window.env.API_URL || 'http://localhost:5000';
+console.log('API URL:', apiUrl);
+
 document.getElementById('downloadBtn').addEventListener('click', async () => {
 	const videoUrl = document.getElementById('videoUrl').value.trim(); // Trim whitespace
 	const message = document.getElementById('message');
@@ -23,7 +25,7 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 			},
 		});
 
-		console.log('Response:', response); 
+		console.log('Response:', response);
 
 		if (!response.ok) {
 			throw new Error(`Server returned ${response.status}: ${response.statusText}`);
@@ -34,13 +36,13 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 		if (data.success) {
 			// Start download
-			window.location.href = data.videoUrl; 
+			window.location.href = data.videoUrl;
 			message.textContent = 'Download started...';
 		} else {
 			message.textContent = data.message || 'Failed to download the video.';
 		}
 	} catch (error) {
 		message.textContent = 'An error occurred. Please try again.';
-		console.error('Error:', error); 
+		console.error('Error:', error);
 	}
 });
