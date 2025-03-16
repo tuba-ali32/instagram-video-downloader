@@ -55,7 +55,7 @@ app.get('/download-reels', async (req, res) => {
 		res.json({ success: true, videoUrl: videoUrl });
 	} catch (error) {
 		console.error('Error:', error.response ? error.response.data : error.message);
-		res.status(500).json({ success: false, message: 'Failed to fetch reels.' });
+		res.status(500).json({ success: false, message: 'Failed to fetch reels.' ,error});
 	}
 });
 
