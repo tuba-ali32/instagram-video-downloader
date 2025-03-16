@@ -1,3 +1,4 @@
+import "dotenv/config"
 document.getElementById('downloadBtn').addEventListener('click', async () => {
 	const videoUrl = document.getElementById('videoUrl').value.trim(); // Trim whitespace
 	const message = document.getElementById('message');
@@ -13,7 +14,7 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 	try {
 		// Pass the videoUrl as a query parameter
-		const apiUrl = `https:/instagram-downloader-iota.vercel.app/download-reels?url=${encodeURIComponent(videoUrl)}`;
+		const apiUrl = `${process.env.REACT_APP_API_URL}/download-reels?url=${encodeURIComponent(videoUrl)}`;
 
 		const response = await fetch(apiUrl, {
 			method: 'GET',
