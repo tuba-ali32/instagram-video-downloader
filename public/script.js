@@ -16,9 +16,9 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 	try {
 		// Pass the videoUrl as a query parameter
-		const apiUrl = `${process.env.REACT_APP_API_URL}/download-reels?url=${encodeURIComponent(videoUrl)}`;
+		const fullUrl = `http://localhost:5000/download-reels?url=${encodeURIComponent(videoUrl)}`;
 
-		const response = await fetch(apiUrl, {
+		const response = await fetch(fullUrl, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',

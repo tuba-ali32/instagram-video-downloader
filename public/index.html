@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instagram Video Downloader</title>
-    <link rel="stylesheet" href="./styles.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Instagram Video Downloader</h1>
-        <input type="text" id="videoUrl" placeholder="Paste Instagram Video URL" />
-        <button id="downloadBtn">Download Video</button>
-        <p id="message"></p>
-    </div>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Instagram Video Downloader</title>
+		<link rel="stylesheet" href="./styles.css" />
+		<script>
+			// Inject environment variables
+			window.env = {
+				API_URL: 'https://instagram-downloader-iota.vercel.app/',
+			};
+			console.log('Environment Variables:', window.env); // Debugging
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Instagram Video Downloader</h1>
+			<input type="text" id="videoUrl" placeholder="Paste Instagram Video URL" />
+			<button id="downloadBtn">Download Video</button>
+			<p id="message"></p>
+		</div>
 
-    <script type="module" src="./script.js"></script>
-</body>
+		<script type="module" src="./script.js"></script>
+	</body>
 </html>

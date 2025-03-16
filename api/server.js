@@ -1,19 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 import axios from 'axios';
-import path from 'path';	
 
 const app = express();
-const port = 5000 || process.env.PORT;
-
+const port = 5000;
 
 // Middleware
-app.use(cors()); 
+app.use(cors());
 app.use(express.json());
 
-const __dirname = path.resolve();
-
-app.use('/', express.static(path.join(__dirname, '../public')));
+// Root route
+app.get('/', (req, res) => {
+	res.send('Instagram Reels Downloader API');
+});
 
 // API endpoint for downloading Instagram reels
 app.get('/download-reels', async (req, res) => {
@@ -30,10 +29,10 @@ app.get('/download-reels', async (req, res) => {
 			method: 'GET',
 			url: 'https://instagram-reels-downloader-api.p.rapidapi.com/download',
 			params: {
-				url: url, 
+				url: url,
 			},
 			headers: {
-				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176', 
+				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176',
 				'x-rapidapi-host': 'instagram-reels-downloader-api.p.rapidapi.com',
 			},
 		};
