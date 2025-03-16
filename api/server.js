@@ -39,6 +39,7 @@ app.get('/download-reels', async (req, res) => {
 
 		// Make the request to RapidAPI
 		const response = await axios(options);
+		console.log(response)
 
 		// Debugging: Log the full response
 		console.log('API Response:', JSON.stringify(response.data, null, 2));
