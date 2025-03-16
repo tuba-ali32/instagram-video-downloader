@@ -23,6 +23,8 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 			headers: {
 				'Content-Type': 'application/json',
 			},
+			credentials: 'include', 
+			withCredentials: true,
 		});
 
 		console.log('Response:', response);
