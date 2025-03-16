@@ -31,6 +31,7 @@ app.get('/download-reels', async (req, res) => {
 			params: {
 				url: url,
 			},
+			mode: 'cors',
 			headers: {
 				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176',
 				'x-rapidapi-host': 'instagram-reels-downloader-api.p.rapidapi.com',
