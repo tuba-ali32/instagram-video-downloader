@@ -24,6 +24,7 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 			url: 'https://instagram-reels-downloader-api.p.rapidapi.com/download',
 			params: {
 				userId: '25025320',
+				url:videoUrl
 			},
 
 			headers: {
