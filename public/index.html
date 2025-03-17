@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Instagram Video Downloader</title>
 		<link rel="stylesheet" href="./styles.css" />
+
 		<script>
 			// Inject environment variables
 			window.env = {
@@ -20,6 +21,11 @@
 			<button id="downloadBtn">Download Video</button>
 			<p id="message"></p>
 		</div>
+		 <!-- Loader overlay -->
+    <div id="loader-overlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
 
 		<script type="module" src="./script.js"></script>
 	</body>

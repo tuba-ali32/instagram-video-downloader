@@ -3,9 +3,7 @@ const apiUrl = window.env.API_URL || 'http://localhost:5000';
 document.getElementById('downloadBtn').addEventListener('click', async () => {
 	const videoUrl = document.getElementById('videoUrl').value.trim().toString();
 	const message = document.getElementById('message');
-
-	console.log('Video URL:', videoUrl); // Debugging
-	console.log('Message element:', message); // Debugging
+	const loaderOverlay = document.getElementById('loader-overlay'); 
 
 	// Validate URL
 	if (!videoUrl || !videoUrl.startsWith('https://www.instagram.com')) {
@@ -14,11 +12,13 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 	}
 
 	try {
+		// Show the loader overlay
+		loaderOverlay.style.display = 'flex';
+		message.textContent = '';
 		// Pass the videoUrl as a query parameter
 		const fullUrl = `https://instagram-reels-downloader-api.p.rapidapi.com/download?userId=25025320&url=${encodeURIComponent(
 			videoUrl,
 		)}`;
-		console.log(fullUrl);
 
 		const response = await fetch(fullUrl, {
 			method: 'GET',
@@ -28,7 +28,6 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 			},
 		});
 
-		console.log('Response:', response);
 
 		// Check if the response is OK
 		if (!response.ok) {
@@ -37,7 +36,6 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 		// Parse the response as JSON
 		const data = await response.json();
-		console.log('Data:', data);
 
 		// Extract the video URL from the medias array
 		if (!data.data.medias || data.data.medias.length === 0) {
@@ -50,7 +48,9 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 		window.location.href = downloadedVideoUrl;
 		message.textContent = 'Download started...';
 	} catch (error) {
-		console.error('Error:', error);
 		message.textContent = 'An error occurred. Please try again.';
+	} finally {
+		// Hide the loader overlay (runs whether the request succeeds or fails)
+		loaderOverlay.style.display = 'none';
 	}
 });

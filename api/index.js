@@ -23,7 +23,7 @@ app.use(
 				callback(new Error('Not allowed by CORS'));
 			}
 		},
-		credentials: true, // Allow credentials if needed
+		credentials: true, 
 	}),
 );
 app.use(express.json());
@@ -31,11 +31,10 @@ app.get("/test", (req, res) => {
 		res.status(200).json({ success: success, message: 'hello' });
 })
 
-// API endpoint for downloading Instagram reels
 app.get('/download', async (req, res) => {
 	console.log('hello');
 
-	const { url } = req.query; // Get URL from the query parameters
+	const { url } = req.query; 
 	console.log('URL:', url);
 
 	// Validate URL
@@ -81,7 +80,4 @@ app.get('/download', async (req, res) => {
 	}
 });
 
-// app.listen(port, () => {
-// 	console.log(`Server running at http://localhost:${port}`);
-// });
 export default app;
