@@ -27,6 +27,11 @@ app.use(
 	}),
 );
 app.use(express.json());
+app.get("/", (req, res) => {
+	res.send({
+		message:"fullfilled"
+	})
+})
 
 // API endpoint for downloading Instagram reels
 app.get('/download-reels', async (req, res) => {
