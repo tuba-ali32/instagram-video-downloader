@@ -32,7 +32,7 @@ app.get("/test", (req, res) => {
 })
 
 // API endpoint for downloading Instagram reels
-app.get('/download-reels', async (req, res) => {
+app.get('/download', async (req, res) => {
 	console.log('hello');
 
 	const { url } = req.query; // Get URL from the query parameters
