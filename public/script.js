@@ -34,6 +34,24 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 		console.log('Response:', response);
 
+		// Make the request to RapidAPI
+
+		// Debugging: Log the full response
+		console.log('API Response:', JSON.stringify(response.data, null, 2));
+
+		// Extract the video URL from the medias array
+		if (!response.data.data.medias || response.data.data.medias.length === 0) {
+			return res.status(404).json({ success: false, message: 'No video found in the response.' });
+		}
+
+		const videoUrl = response.data.data.medias[0].url;
+
+		// Send the video URL back to the client
+		res.json({ success: true, videoUrl: videoUrl });
+	} catch (error) {
+		console.error('Error:', error.response ? error.response.data : error.message);
+		console.log(error);
+		res.status(500).json({ success: false, message: 'Failed to fetch reels.', error });
 		if (!response.ok) {
 			throw new Error(`Server returned ${response.status}: ${response.statusText}`);
 		}
@@ -48,8 +66,5 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 		} else {
 			message.textContent = data.message || 'Failed to download the video.';
 		}
-	} catch (error) {
-		message.textContent = 'An error occurred. Please try again.';
-		console.error('Error:', error);
 	}
 });
