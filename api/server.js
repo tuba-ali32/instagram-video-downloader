@@ -1,119 +1,3 @@
-// import express from 'express';
-// import cors from 'cors';
-// import axios from 'axios';
-// import dotenv from 'dotenv';
-
-// dotenv.config();
-
-// const app = express();
-// const port = process.env.PORT || 5000;
-
-// // const allowedOrigins = [
-// // 	'https://instagram-video-downloader-delta.vercel.app',
-// // 	'http://127.0.0.1:5500',
-// // 	'http://localhost:5500',
-// // ];
-
-// // app.use(
-// // 	cors({
-// // 		origin: (origin, callback) => {
-// // 			if (!origin || allowedOrigins.includes(origin)) {
-// // 				callback(null, true);
-// // 			} else {
-// // 				callback(new Error('Not allowed by CORS'));
-// // 			}
-// // 		},
-// // 		credentials: true, // Allow credentials if needed
-// // 	}),
-// // );
-// // app.use(express.json());
-// // // Enable preflight requests
-// // app.options('/download-reels', cors());
-// // API endpoint for downloading Instagram reels
-
-// // Log the origin for debugging
-// app.use((req, res, next) => {
-//     console.log('Origin:', req.headers.origin);
-//     next();
-// });
-
-// // Allow requests from any origin dynamically
-// app.use(
-//     cors({
-//         origin: (origin, callback) => {
-//             // Allow requests with no origin (e.g., mobile apps, Postman)
-//             if (!origin) {
-//                 return callback(null, true);
-//             }
-
-//             // Log the origin for debugging
-//             console.log('Allowed Origin:', origin);
-
-//             // Allow the request
-//             callback(null, true);
-//         },
-//         credentials: true, // Allow credentials if needed
-//     }),
-// );
-
-// app.use(express.json());
-
-// // Enable preflight requests
-// app.options('/download-reels', cors());
-// app.get('/download-reels', async (req, res) => {
-// 	console.log('hello');
-
-// 	const { url } = req.query; // Get URL from the query parameters
-// 	console.log('URL:', url);
-
-// 	// Validate URL
-// 	if (!url || !url.startsWith('https://www.instagram.com')) {
-// 		return res.status(400).json({ success: false, message: 'A valid Instagram URL is required.' });
-// 	}
-
-// 	try {
-// 		const options = {
-// 			method: 'GET',
-// 			url: 'https://instagram-reels-downloader-api.p.rapidapi.com/download',
-// 			params: {
-// 				url: url,
-// 				userId: '25025320',
-// 			},
-
-// 			headers: {
-// 				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176',
-// 				'x-rapidapi-host': 'instagram-reels-downloader-api.p.rapidapi.com',
-// 			},
-// 		};
-
-// 		// Make the request to RapidAPI
-// 		const response = await axios(options);
-// 		console.log(response);
-
-// 		// Debugging: Log the full response
-// 		console.log('API Response:', JSON.stringify(response.data, null, 2));
-
-// 		// Extract the video URL from the medias array
-// 		if (!response.data.data.medias || response.data.data.medias.length === 0) {
-// 			return res.status(404).json({ success: false, message: 'No video found in the response.' });
-// 		}
-
-// 		const videoUrl = response.data.data.medias[0].url;
-
-// 		// Send the video URL back to the client
-// 		res.json({ success: true, videoUrl: videoUrl });
-// 	} catch (error) {
-// 		// console.error('Error:', error.response ? error.response.data : error.message);
-// 		console.log(error);
-// 		res.status(500).json({ success: false, message: 'Failed to fetch reels.', error });
-// 	}
-// });
-
-// app.listen(port, () => {
-// 	console.log(`Server running at http://localhost:${port}`);
-// });
-
-
 import express from 'express';
 import cors from 'cors';
 import axios from 'axios';
@@ -122,53 +6,65 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
+const port = process.env.PORT || 5000;
 
-// Log all requests
+// const allowedOrigins = [
+// 	'https://instagram-video-downloader-delta.vercel.app',
+// 	'http://127.0.0.1:5500',
+// 	'http://localhost:5500',
+// ];
+
+// app.use(
+// 	cors({
+// 		origin: (origin, callback) => {
+// 			if (!origin || allowedOrigins.includes(origin)) {
+// 				callback(null, true);
+// 			} else {
+// 				callback(new Error('Not allowed by CORS'));
+// 			}
+// 		},
+// 		credentials: true, // Allow credentials if needed
+// 	}),
+// );
+// app.use(express.json());
+// // Enable preflight requests
+// app.options('/download-reels', cors());
+// API endpoint for downloading Instagram reels
+
+// Log the origin for debugging
 app.use((req, res, next) => {
-	console.log('Request received:', req.method, req.url);
-	console.log('Origin:', req.headers.origin);
-	next();
+    console.log('Origin:', req.headers.origin);
+    next();
 });
 
 // Allow requests from any origin dynamically
 app.use(
-	cors({
-		origin: (origin, callback) => {
-			// Allow requests with no origin (e.g., mobile apps, Postman)
-			if (!origin) {
-				return callback(null, true);
-			}
+    cors({
+        origin: (origin, callback) => {
+            // Allow requests with no origin (e.g., mobile apps, Postman)
+            if (!origin) {
+                return callback(null, true);
+            }
 
-			// Log the origin for debugging
-			console.log('Allowed Origin:', origin);
+            // Log the origin for debugging
+            console.log('Allowed Origin:', origin);
 
-			// Allow the request
-			callback(null, true);
-		},
-		credentials: true, // Allow credentials if needed
-	}),
+            // Allow the request
+            callback(null, true);
+        },
+        credentials: true, // Allow credentials if needed
+    }),
 );
 
 app.use(express.json());
 
 // Enable preflight requests
-app.options('/download-reels', (req, res) => {
-	console.log('Preflight request received');
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Methods', 'GET');
-	res.header('Access-Control-Allow-Headers', 'Content-Type');
-	res.send();
-});
-
-// Test endpoint
-app.get('/test', (req, res) => {
-	console.log('Test endpoint hit');
-	res.json({ success: true, message: 'Test endpoint works!' });
-});
-
-// API endpoint for downloading Instagram reels
+app.options('/download-reels', cors());
 app.get('/download-reels', async (req, res) => {
+	console.log('hello');
+
 	const { url } = req.query; // Get URL from the query parameters
+	console.log('URL:', url);
 
 	// Validate URL
 	if (!url || !url.startsWith('https://www.instagram.com')) {
@@ -183,6 +79,7 @@ app.get('/download-reels', async (req, res) => {
 				url: url,
 				userId: '25025320',
 			},
+
 			headers: {
 				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176',
 				'x-rapidapi-host': 'instagram-reels-downloader-api.p.rapidapi.com',
@@ -191,6 +88,10 @@ app.get('/download-reels', async (req, res) => {
 
 		// Make the request to RapidAPI
 		const response = await axios(options);
+		console.log(response);
+
+		// Debugging: Log the full response
+		console.log('API Response:', JSON.stringify(response.data, null, 2));
 
 		// Extract the video URL from the medias array
 		if (!response.data.data.medias || response.data.data.medias.length === 0) {
@@ -202,10 +103,12 @@ app.get('/download-reels', async (req, res) => {
 		// Send the video URL back to the client
 		res.json({ success: true, videoUrl: videoUrl });
 	} catch (error) {
-		console.error('Error:', error);
+		// console.error('Error:', error.response ? error.response.data : error.message);
+		console.log(error);
 		res.status(500).json({ success: false, message: 'Failed to fetch reels.', error });
 	}
 });
 
-// Export the Express app as a serverless function
-export default app;
+app.listen(port, () => {
+	console.log(`Server running at http://localhost:${port}`);
+});
