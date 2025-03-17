@@ -1,21 +1,37 @@
 import express from 'express';
 import cors from 'cors';
 import axios from 'axios';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+const allowedOrigins = [
+	'https://instagram-downloader-iota.vercel.app/', 
+	'http://127.0.0.1:5500', 
+	'http://localhost:5500', 
+];
+
+app.use(
+	cors({
+		origin: (origin, callback) => {
+			if (!origin || allowedOrigins.includes(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error('Not allowed by CORS'));
+			}
+		},
+		credentials: true, // Allow credentials if needed
+	}),
+);
 app.use(express.json());
-
-// Root route
-app.get('/', (req, res) => {
-	res.send('Instagram Reels Downloader API');
-});
 
 // API endpoint for downloading Instagram reels
 app.get('/download-reels', async (req, res) => {
+	console.log('hello');
+
 	const { url } = req.query; // Get URL from the query parameters
 	console.log('URL:', url);
 
@@ -30,8 +46,9 @@ app.get('/download-reels', async (req, res) => {
 			url: 'https://instagram-reels-downloader-api.p.rapidapi.com/download',
 			params: {
 				url: url,
+				userId: '25025320',
 			},
-			mode: 'cors',
+
 			headers: {
 				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176',
 				'x-rapidapi-host': 'instagram-reels-downloader-api.p.rapidapi.com',
@@ -40,7 +57,7 @@ app.get('/download-reels', async (req, res) => {
 
 		// Make the request to RapidAPI
 		const response = await axios(options);
-		console.log(response)
+		console.log(response);
 
 		// Debugging: Log the full response
 		console.log('API Response:', JSON.stringify(response.data, null, 2));
@@ -55,8 +72,9 @@ app.get('/download-reels', async (req, res) => {
 		// Send the video URL back to the client
 		res.json({ success: true, videoUrl: videoUrl });
 	} catch (error) {
-		console.error('Error:', error.response ? error.response.data : error.message);
-		res.status(500).json({ success: false, message: 'Failed to fetch reels.' ,error});
+		// console.error('Error:', error.response ? error.response.data : error.message);
+		console.log(error);
+		res.status(500).json({ success: false, message: 'Failed to fetch reels.', error });
 	}
 });
 

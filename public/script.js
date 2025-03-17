@@ -1,8 +1,8 @@
-const apiUrl = window.env.API_URL || 'http://localhost:5000';
-console.log('API URL:', apiUrl);
+// const apiUrl = window.env.API_URL || 'http://localhost:5000';
+// console.log('API URL:', apiUrl);
 
 document.getElementById('downloadBtn').addEventListener('click', async () => {
-	const videoUrl = document.getElementById('videoUrl').value.trim(); // Trim whitespace
+	const videoUrl = document.getElementById('videoUrl').value.trim().toString();
 	const message = document.getElementById('message');
 
 	console.log('Video URL:', videoUrl); // Debugging
@@ -16,7 +16,8 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 	try {
 		// Pass the videoUrl as a query parameter
-		const fullUrl = `${apiUrl}download-reels?url=${encodeURIComponent(videoUrl)}`;
+		// const fullUrl = `${apiUrl}download-reels?url=${encodeURIComponent(videoUrl)}`;
+		const fullUrl = `http://localhost:5000/download-reels?url=https://www.instagram.com/reel/DE0ZOSesHk0/?igsh=bHN2Z3F4cjRkaTBu}`;
 
 		const response = await fetch(fullUrl, {
 			method: 'GET',
