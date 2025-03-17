@@ -15,17 +15,15 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 	try {
 		// Pass the videoUrl as a query parameter
-		const fullUrl = `https://instagram-reels-downloader-api.p.rapidapi.com/download?userId=25025320&url=${encodeURIComponent(
-			videoUrl,
-		)}`;
+		const fullUrl = `https://instagram-reels-downloader-api.p.rapidapi.com/download?userId=25025320&url=https://www.instagram.com/reel/DE0ZOSesHk0/?igsh=bHN2Z3F4cjRkaTBu}`;
 		console.log(fullUrl);
 		const response = await fetch(fullUrl, {
 			method: 'GET',
-			url: 'https://instagram-reels-downloader-api.p.rapidapi.com/download',
-			params: {
-				userId: '25025320',
-				url: videoUrl,
-			},
+			// url: 'https://instagram-reels-downloader-api.p.rapidapi.com/download',
+			// params: {
+			// 	userId: '25025320',
+			// 	url: videoUrl,
+			// },
 
 			headers: {
 				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176' ,
