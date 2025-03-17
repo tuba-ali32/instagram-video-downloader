@@ -81,6 +81,7 @@ app.get('/download', async (req, res) => {
 	}
 });
 
-app.listen(port, () => {
-	console.log(`Server running at http://localhost:${port}`);
-});
+// app.listen(port, () => {
+// 	console.log(`Server running at http://localhost:${port}`);
+// });
+export default app;

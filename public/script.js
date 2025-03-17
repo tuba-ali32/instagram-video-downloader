@@ -15,7 +15,7 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 	try {
 		// Pass the videoUrl as a query parameter
-		const fullUrl = `${apiUrl}download?url=${encodeURIComponent(videoUrl)}`;
+		const fullUrl = `${apiUrl}/api/download?url=${encodeURIComponent(videoUrl)}`;
 		console.log(fullUrl);
 		const response = await fetch(fullUrl, {
 			method: 'GET',
