@@ -24,11 +24,11 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 			url: 'https://instagram-reels-downloader-api.p.rapidapi.com/download',
 			params: {
 				userId: '25025320',
-				url:videoUrl
+				url: videoUrl,
 			},
 
 			headers: {
-				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176' || process.env.RAPIDAPI_KEY,
+				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176' ,
 				'x-rapidapi-host': 'instagram-reels-downloader-api.p.rapidapi.com',
 			},
 		});
