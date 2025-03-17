@@ -9,9 +9,9 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const allowedOrigins = [
-	'https://instagram-downloader-iota.vercel.app/', 
-	'http://127.0.0.1:5500', 
-	'http://localhost:5500', 
+	'https://instagram-video-downloader-delta.vercel.app/',
+	'http://127.0.0.1:5500',
+	'http://localhost:5500',
 ];
 
 app.use(
