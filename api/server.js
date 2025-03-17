@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const allowedOrigins = [
-	'https://instagram-video-downloader-delta.vercel.app/',
+	'https://instagram-video-downloader-delta.vercel.app',
 	'http://127.0.0.1:5500',
 	'http://localhost:5500',
 ];
@@ -27,7 +27,8 @@ app.use(
 	}),
 );
 app.use(express.json());
-
+// Enable preflight requests
+app.options('/download-reels', cors());
 // API endpoint for downloading Instagram reels
 app.get('/download-reels', async (req, res) => {
 	console.log('hello');
