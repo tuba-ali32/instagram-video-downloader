@@ -15,55 +15,42 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 	try {
 		// Pass the videoUrl as a query parameter
-		const fullUrl = `https://instagram-reels-downloader-api.p.rapidapi.com/download?userId=25025320&url=https://www.instagram.com/reel/DE0ZOSesHk0/?igsh=bHN2Z3F4cjRkaTBu}`;
+		const fullUrl = `https://instagram-reels-downloader-api.p.rapidapi.com/download?userId=25025320&url=${encodeURIComponent(
+			videoUrl,
+		)}`;
 		console.log(fullUrl);
+
 		const response = await fetch(fullUrl, {
 			method: 'GET',
-			url: 'https://instagram-reels-downloader-api.p.rapidapi.com/download',
-			params: {
-				userId: '25025320',
-				url: videoUrl,
-			},
-
 			headers: {
-				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176' ,
+				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176',
 				'x-rapidapi-host': 'instagram-reels-downloader-api.p.rapidapi.com',
 			},
 		});
 
 		console.log('Response:', response);
 
-		// Make the request to RapidAPI
-
-		// Debugging: Log the full response
-		console.log('API Response:', JSON.stringify(response.data, null, 2));
-
-		// Extract the video URL from the medias array
-		if (!response.data.data.medias || response.data.data.medias.length === 0) {
-			return res.status(404).json({ success: false, message: 'No video found in the response.' });
-		}
-
-		const downloadedVideoUrl = response.data.data.medias[0].url;
-
-		// Send the video URL back to the client
-		res.json({ success: true, videoUrl: downloadedVideoUrl });
-	} catch (error) {
-		console.error('Error:', error.response ? error.response.data : error.message);
-		console.log(error);
-		// res.status(500).json({ success: false, message: 'Failed to fetch reels.', error });
+		// Check if the response is OK
 		if (!response.ok) {
 			throw new Error(`Server returned ${response.status}: ${response.statusText}`);
 		}
 
+		// Parse the response as JSON
 		const data = await response.json();
 		console.log('Data:', data);
 
-		if (data.success) {
-			// Start download
-			window.location.href = data.videoUrl;
-			message.textContent = 'Download started...';
-		} else {
-			message.textContent = data.message || 'Failed to download the video.';
+		// Extract the video URL from the medias array
+		if (!data.data.medias || data.data.medias.length === 0) {
+			throw new Error('No video found in the response.');
 		}
+
+		const downloadedVideoUrl = data.data.medias[0].url;
+
+		// Start download
+		window.location.href = downloadedVideoUrl;
+		message.textContent = 'Download started...';
+	} catch (error) {
+		console.error('Error:', error);
+		message.textContent = 'An error occurred. Please try again.';
 	}
 });
