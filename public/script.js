@@ -1,5 +1,4 @@
 const apiUrl = window.env.API_URL || 'http://localhost:5000';
-console.log('API URL:', apiUrl);
 
 document.getElementById('downloadBtn').addEventListener('click', async () => {
 	const videoUrl = document.getElementById('videoUrl').value.trim().toString();

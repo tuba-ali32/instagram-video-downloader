@@ -8,58 +8,27 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-// const allowedOrigins = [
-// 	'https://instagram-video-downloader-delta.vercel.app',
-// 	'http://127.0.0.1:5500',
-// 	'http://localhost:5500',
-// ];
+const allowedOrigins = [
+	'https://instagram-video-downloader-delta.vercel.app',
+	'http://127.0.0.1:5500',
+	'http://localhost:5500', 
+];
 
-// app.use(
-// 	cors({
-// 		origin: (origin, callback) => {
-// 			if (!origin || allowedOrigins.includes(origin)) {
-// 				callback(null, true);
-// 			} else {
-// 				callback(new Error('Not allowed by CORS'));
-// 			}
-// 		},
-// 		credentials: true, // Allow credentials if needed
-// 	}),
-// );
-// app.use(express.json());
-// // Enable preflight requests
-// app.options('/download-reels', cors());
-// API endpoint for downloading Instagram reels
-
-// Log the origin for debugging
-app.use((req, res, next) => {
-    console.log('Origin:', req.headers.origin);
-    next();
-});
-
-// Allow requests from any origin dynamically
 app.use(
-    cors({
-        origin: (origin, callback) => {
-            // Allow requests with no origin (e.g., mobile apps, Postman)
-            if (!origin) {
-                return callback(null, true);
-            }
-
-            // Log the origin for debugging
-            console.log('Allowed Origin:', origin);
-
-            // Allow the request
-            callback(null, true);
-        },
-        credentials: true, // Allow credentials if needed
-    }),
+	cors({
+		origin: (origin, callback) => {
+			if (!origin || allowedOrigins.includes(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error('Not allowed by CORS'));
+			}
+		},
+		credentials: true, // Allow credentials if needed
+	}),
 );
-
 app.use(express.json());
 
-// Enable preflight requests
-app.options('/download-reels', cors());
+// API endpoint for downloading Instagram reels
 app.get('/download-reels', async (req, res) => {
 	console.log('hello');
 
@@ -81,7 +50,7 @@ app.get('/download-reels', async (req, res) => {
 			},
 
 			headers: {
-				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176',
+				'x-rapidapi-key': '12c2fa05b3mshccf8a4b3eb452ccp1380b7jsn71e1f5190176' || process.env.RAPIDAPI_KEY,
 				'x-rapidapi-host': 'instagram-reels-downloader-api.p.rapidapi.com',
 			},
 		};
@@ -109,6 +78,6 @@ app.get('/download-reels', async (req, res) => {
 	}
 });
 
-// app.listen(port, () => {
-// 	console.log(`Server running at http://localhost:${port}`);
-// });
+app.listen(port, () => {
+	console.log(`Server running at http://localhost:${port}`);
+});
