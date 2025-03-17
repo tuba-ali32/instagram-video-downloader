@@ -15,7 +15,9 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 
 	try {
 		// Pass the videoUrl as a query parameter
-		const fullUrl = `${apiUrl}/download?url=${encodeURIComponent(videoUrl)}`;
+		const fullUrl = `https://instagram-reels-downloader-api.p.rapidapi.com/download?url=${encodeURIComponent(
+			videoUrl,
+		)}`;
 		console.log(fullUrl);
 		const response = await fetch(fullUrl, {
 			method: 'GET',
