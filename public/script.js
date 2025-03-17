@@ -44,14 +44,14 @@ document.getElementById('downloadBtn').addEventListener('click', async () => {
 			return res.status(404).json({ success: false, message: 'No video found in the response.' });
 		}
 
-		const videoUrl = response.data.data.medias[0].url;
+		const downloadedVideoUrl = response.data.data.medias[0].url;
 
 		// Send the video URL back to the client
-		res.json({ success: true, videoUrl: videoUrl });
+		res.json({ success: true, videoUrl: downloadedVideoUrl });
 	} catch (error) {
 		console.error('Error:', error.response ? error.response.data : error.message);
 		console.log(error);
-		res.status(500).json({ success: false, message: 'Failed to fetch reels.', error });
+		// res.status(500).json({ success: false, message: 'Failed to fetch reels.', error });
 		if (!response.ok) {
 			throw new Error(`Server returned ${response.status}: ${response.statusText}`);
 		}
